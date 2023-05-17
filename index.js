@@ -19,7 +19,7 @@ app.get('/movie/:id', async (req, res) => {
     res.json(response.data);
 });
 
-app.get('/genre', async (res) => {
+app.get('/genre', async (req, res) => {
     const response = await axios.get(
         `${TMDB_URL}/genre/movie/list?api_key=${process.env.TMDB_KEY}&language=en-US`
     );
