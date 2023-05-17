@@ -29,7 +29,15 @@ app.get('/genre', async (req, res) => {
 
 app.get('/popular', async (req, res) => {
     const response = await axios.get(
-        `${TMDB_URL}/movie/popular?api_key=${process.env.TMDB_KEY}&language=en-US`
+        `${TMDB_URL}/movie/popular?api_key=${process.env.TMDB_KEY}&include_adult=false`
+    );
+
+    res.json(response.data);
+});
+
+app.get('/search/:title', async (req, res) => {
+    const response = await axios.get(
+        `${TMDB_URL}/search/movie?api_key=${process.env.TMDB_KEY}&query=${req.params.title}&include_adult=false`
     );
 
     res.json(response.data);
