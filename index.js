@@ -19,7 +19,13 @@ app.get('/movie/:id', async (req, res) => {
     res.json(response.data);
 });
 
+app.get('/genre', async (res) => {
+    const response = await axios.get(
+        `${TMDB_URL}/genre/movie/list?api_key=${process.env.TMDB_KEY}&language=en-US`
+    );
 
+    res.json(response.data);
+});
 
 app.listen(PORT, () => {
     console.log(`Server is listening on port: ${PORT}`);
