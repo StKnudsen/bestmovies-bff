@@ -54,7 +54,6 @@ app.get('/credits/:id', async (req, res) => {
 
 app.get('/user/:id', async (req, res) => {
     const response = await axios.get(
-        // `${TMDB_URL}/movie/${req.params.id}/credits?api_key=${process.env.TMDB_KEY}&language=en-US`
         `${BMDB_URL}/user/${req.params.id}`
     );
 
@@ -68,6 +67,25 @@ app.put('/user/:id/:name', async(req, res) => {
 
     res.json(response.data);
 })
+
+app.get('/toplist/:id', async (req, res) => {
+    const response = await axios.get(
+        `${BMDB_URL}/user/${req.params.id}/toplist`
+    );
+
+    res.json(response.data);
+});
+
+app.put('/toplist/:id/:movieId', async(req, res) => {
+    console.log(`${BMDB_URL}/user/${req.params.id}/toplist?tmdbid=${req.params.movieId}&number=1`);
+
+    const response = await axios.put(
+        `${BMDB_URL}/user/${req.params.id}/toplist?tmdbid=${req.params.movieId}&number=1`
+    );
+
+    res.json(response.data);
+})
+
 
 app.listen(PORT, () => {
     console.log(`Server is listening on port: ${PORT}`);
