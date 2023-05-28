@@ -7,7 +7,8 @@ require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
 
-const TMDB_URL = "https://api.themoviedb.org/3"
+const TMDB_URL = "https://api.themoviedb.org/3";
+const BMDB_URL = "https://bestmoviesneo4j.azurewebsites.net";
 
 app.use(cors());
 
@@ -54,11 +55,19 @@ app.get('/credits/:id', async (req, res) => {
 app.get('/user/:id', async (req, res) => {
     const response = await axios.get(
         // `${TMDB_URL}/movie/${req.params.id}/credits?api_key=${process.env.TMDB_KEY}&language=en-US`
-        `https://bestmoviesneo4j.azurewebsites.net/user/${req.params.id}`
+        `${BMDB_URL}/user/${req.params.id}`
     );
 
     res.json(response.data);
 });
+
+app.put('/user/:id/:name', async(req, res) => {
+    const response = await axios.put(
+        `${BMDB_URL}/user?username=${req.params.name}&userid=${req.params.id}`
+    );
+
+    res.json(response.data);
+})
 
 app.listen(PORT, () => {
     console.log(`Server is listening on port: ${PORT}`);
